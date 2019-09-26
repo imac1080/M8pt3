@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">m8button</string>
     <string name="button">Button</string>
+    <string name="posa_un_numero">Posa un numero!</string>
+    <string name="textview">TextView</string>
 </resources>
