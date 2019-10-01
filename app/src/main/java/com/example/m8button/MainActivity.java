@@ -30,7 +30,13 @@ public class MainActivity extends AppCompatActivity {
                     textView2.setText("HAS ENCERTAT EL NUMERO "+number.getText());
                 }else {
                     intentos++;
-                    textView2.setText("HAS FALLAT EL NUMERO("+random+") INTENT: "+intentos);
+                    String texto= "HAS FALLAT EL NUMERO("+random+") INTENT: "+intentos;
+                    if (random<Integer.parseInt(String.valueOf(number.getText()))){
+                            texto=texto+"\n El numero es menor que "+number.getText();
+                    }else{
+                            texto=texto+"\n El numero es mayor que "+number.getText();
+                        }
+                    textView2.setText(texto);
                 }
             }
     });
