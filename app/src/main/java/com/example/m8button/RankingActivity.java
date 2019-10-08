@@ -22,9 +22,6 @@ public class RankingActivity extends AppCompatActivity {
                 finish();
             }
         });
-        ExampleDialog exampleDialog = new ExampleDialog();
-        exampleDialog.show(getSupportFragmentManager(), "example dialog");
-
         }
 
 }

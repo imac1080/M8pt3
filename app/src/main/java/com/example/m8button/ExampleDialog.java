@@ -11,15 +11,14 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 
 public class ExampleDialog extends AppCompatDialogFragment {
-
+    EditText username ;
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Dialog dialog= new Dialog();
-        final EditText username = dialog.findViewById(R.id.username);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Get the layout inflater
         LayoutInflater inflater = requireActivity().getLayoutInflater();
 
+        username = new EditText(getContext());
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
         builder.setView(inflater.inflate(R.layout.dialog_signin, null))
@@ -27,7 +26,8 @@ public class ExampleDialog extends AppCompatDialogFragment {
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        // sign in the user ...
+                        MainActivity.textView2.setText(username.getText().toString());
+                        //MainActivity.textView2.setText("dialog_textoooo");
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
