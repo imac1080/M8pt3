@@ -27,7 +27,7 @@
         android:autofillHints="Posa un numero"
         android:ems="10"
         android:hint="@string/posa_un_numero"
-        android:inputType="number"
+        android:inputType="text"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"

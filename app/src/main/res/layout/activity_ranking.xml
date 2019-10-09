@@ -14,17 +14,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/textView_ranking"
-        android:layout_width="149dp"
-        android:layout_height="134dp"
-        android:layout_marginStart="118dp"
-        android:layout_marginTop="116dp"
-        android:layout_marginEnd="144dp"
-        android:layout_marginBottom="481dp"
-        android:text="@string/textview_rankings"
+    <ListView
+        android:id="@+id/lvRanking"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

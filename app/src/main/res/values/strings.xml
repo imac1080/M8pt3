@@ -9,4 +9,6 @@
     <string name="ok">ok</string>
     <string name="cancel">cancel</string>
     <string name="textview_rankings">TextView</string>
+    <string name="otro_texto">Otro Texto</string>
+    <string name="todo">TODO</string>
 </resources>
