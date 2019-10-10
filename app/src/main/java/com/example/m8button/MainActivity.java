@@ -2,10 +2,11 @@ package com.example.m8button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,13 +14,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     int random = (int)(Math.random() * 50 + 1);
-    int intentos= 0;
-    static String nom="nombre";
+    static int intentos= 0;
+    static String nom=null;
     static TextView textView2;
     static ArrayList<Persona> ListRanking = new ArrayList<Persona>();;
     @Override
@@ -28,24 +27,23 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         final Button button = findViewById(R.id.button);
         final Button btnRanking = findViewById(R.id.btnranking);
-        final EditText number = findViewById(R.id.number);
+        final EditText number = findViewById(R.id.textUserRanking);
         textView2 = findViewById(R.id.textView);
         button.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("WrongConstant")
             @Override
             public void onClick(View v) {
-                //Toast.makeText(this,"HELLO DANIEL WORLD",Toast.LENGTH_LONG).show();
                     if (button.getText().equals("TORNAR A COMENÇAR")) {
                         int random = (int) (Math.random() * 50 + 1);
                         button.setText("BUTTON");
                         number.setText("");
-                        //Intent i=new Intent(MainActivity.this, RankingActivity.class);
-                        // i.putExtra("STRING_I_NEED", nom);
                     } else {
+                        intentos++;
                         if (Integer.parseInt(number.getText().toString()) == random) {
                             textView2.setText("HAS ENCERTAT EL NUMERO " + number.getText());
                             button.setText("TORNAR A COMENÇAR");
                             random = (int) (Math.random() * 50 + 1);
-                            //textView2.setText("");
+                            textView2.setText("");
                             final Dialog dialog = new Dialog(MainActivity.this);
                             dialog.setContentView(R.layout.dialog_signin);
                             dialog.setTitle("Title");
@@ -53,20 +51,25 @@ public class MainActivity extends AppCompatActivity {
                             Button button = (Button) dialog.findViewById(R.id.button);
                             button.setOnClickListener(new View.OnClickListener() {
                                 public void onClick(View v) {
-
-                                    EditText edit=(EditText)dialog.findViewById(R.id.number);
-                                    String text=edit.getText().toString();
-
-                                    textView2.setText(text);
-                                    dialog.dismiss();
+                                    EditText edit=(EditText)dialog.findViewById(R.id.textUserRanking);
+                                    nom=edit.getText().toString();
+                                    if (IsOnArray(nom)==true){
+                                        startActivity(new Intent(MainActivity.this, RankingActivity.class));
+                                        dialog.dismiss();
+                                    }else{
+                                        Toast.makeText(MainActivity.this, "el nom "+nom+" ja esta utilitzat!", Toast.LENGTH_LONG).show();
+                                    }
 
                                 }
                             });
-
-
+                            Button buttonCancel = (Button) dialog.findViewById(R.id.btnranking);
+                            buttonCancel.setOnClickListener(new View.OnClickListener() {
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                }
+                            });
                             dialog.show();
                         } else {
-                            intentos++;
                             String texto = "HAS FALLAT EL NUMERO(" + random + ") INTENT: " + intentos;
                             if (random < Integer.parseInt(String.valueOf(number.getText()))) {
                                 texto = texto + "\n El numero es menor que " + number.getText();
@@ -87,6 +90,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+    public static boolean IsOnArray(String nombreTest){
+        for(int i = 0; i < ListRanking.size(); i++)   {
+            if (nombreTest.equals(ListRanking.get(i).getNom())){
+                return false;
+            }
+        }
+        return true;
     }
 
 }

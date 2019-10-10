@@ -28,8 +28,12 @@ public class RankingActivity extends AppCompatActivity {
                 finish();
             }
         });
-        MainActivity.ListRanking.add(new Persona("daniel",5));
-        MainActivity.ListRanking.add(new Persona("josu",3));
+        if (MainActivity.nom!=null) {
+            MainActivity.ListRanking.add(new Persona(MainActivity.nom, MainActivity.intentos));
+            MainActivity.nom=null;
+            MainActivity.intentos=0;
+            OrdenarArray();
+        }
         ArrayAdapter<Persona> arrayAdapter = new ArrayAdapter<Persona>(
                 this,
                 android.R.layout.simple_list_item_1,
@@ -37,6 +41,10 @@ public class RankingActivity extends AppCompatActivity {
 
         lv.setAdapter(arrayAdapter);
     }
+    public static void OrdenarArray(){
 
+    }
 }
+
+
 

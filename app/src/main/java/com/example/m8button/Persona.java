@@ -12,8 +12,12 @@ public class Persona {
         this.qualificacio = qualificacio;
     }
 
+    public String getNom() {
+        return nom;
+    }
+
     @Override
     public String toString() {
-        return nom;
+        return nom+" - "+qualificacio;
     }
 }

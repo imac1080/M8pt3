@@ -10,7 +10,7 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/button"
+        android:text="@string/ok"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.656"
@@ -19,14 +19,14 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <EditText
-        android:id="@+id/number"
+        android:id="@+id/textUserRanking"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="96dp"
-        android:layout_marginEnd="102dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="80dp"
         android:autofillHints="Posa un numero"
         android:ems="10"
-        android:hint="@string/posa_un_numero"
+        android:hint="@string/username"
         android:inputType="text"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/button"
@@ -42,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="88dp"
-        android:text="@string/ranking"
+        android:text="@string/cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
