@@ -42,7 +42,20 @@ public class RankingActivity extends AppCompatActivity {
         lv.setAdapter(arrayAdapter);
     }
     public static void OrdenarArray(){
-
+        boolean ordenado=true;
+        Persona persona1 = new Persona("1",1);
+        while (ordenado){
+            ordenado=false;
+            for(int i = 0; i < MainActivity.ListRanking.size()-1; i++)   {
+                if (MainActivity.ListRanking.get(i).qualificacio > MainActivity.ListRanking.get(i+1).qualificacio){
+                    persona1.qualificacio=MainActivity.ListRanking.get(i).qualificacio;
+                    persona1.nom=MainActivity.ListRanking.get(i).nom;
+                    MainActivity.ListRanking.remove(i);
+                    MainActivity.ListRanking.add(i+1,persona1);
+                    ordenado=true;
+                }
+            }
+        }
     }
 }
 
