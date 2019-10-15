@@ -4,8 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +16,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OptionalDataException;
+import java.io.StreamCorruptedException;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,10 +41,16 @@ public class MainActivity extends AppCompatActivity {
         final Button btnRanking = findViewById(R.id.btnranking);
         final EditText number = findViewById(R.id.textUserRanking);
         textView2 = findViewById(R.id.textView);
+        LeerArray(MainActivity.this);
         button.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("WrongConstant")
             @Override
             public void onClick(View v) {
+                String textoProva= number.getText().toString();
+                if(TextUtils.isEmpty(textoProva)) {
+                    number.setError("No pots deixar-ho buit");
+                    return;
+                }
                     if (button.getText().equals("TORNAR A COMENÇAR")) {
                         int random = (int) (Math.random() * 50 + 1);
                         button.setText("BUTTON");
@@ -47,14 +65,13 @@ public class MainActivity extends AppCompatActivity {
                             final Dialog dialog = new Dialog(MainActivity.this);
                             dialog.setContentView(R.layout.dialog_signin);
                             dialog.setTitle("Title");
-
                             Button button = (Button) dialog.findViewById(R.id.button);
                             button.setOnClickListener(new View.OnClickListener() {
                                 public void onClick(View v) {
                                     EditText edit=(EditText)dialog.findViewById(R.id.textUserRanking);
                                     nom=edit.getText().toString();
                                     if (IsOnArray(nom)==true){
-                                        startActivity(new Intent(MainActivity.this, RankingActivity.class));
+                                        GuardarArray(MainActivity.this);
                                         dialog.dismiss();
                                     }else{
                                         Toast.makeText(MainActivity.this, "el nom "+nom+" ja esta utilitzat!", Toast.LENGTH_LONG).show();
@@ -98,6 +115,43 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return true;
+    }
+
+    public void LeerArray(Context context){
+        try {
+            File f = new File(context.getFilesDir(),"data.dat");
+            if (f.exists()){
+                FileInputStream fout = new FileInputStream(f);
+                ObjectInputStream oos = new ObjectInputStream(fout);
+                ListRanking.clear();
+                while (oos.available()>0)  {
+                    String s = oos.readUTF();
+                    int edat2 = oos.readInt();
+                    ListRanking.add(new Persona(s,edat2));
+                }
+                fout.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    public void GuardarArray(Context context) {
+        try {
+            File f = new File(context.getFilesDir(), "data.dat");
+            FileOutputStream fout = new FileOutputStream(f);
+            ObjectOutputStream oos = new ObjectOutputStream(fout);
+            for(int i = 1; i <= ListRanking.size(); i++)   {
+               oos.writeUTF(ListRanking.get(i).nom);
+                oos.writeInt(ListRanking.get(i).qualificacio);
+            }
+            oos.flush();
+            fout.getFD().sync();
+            fout.close();
+            startActivity(new Intent(MainActivity.this, RankingActivity.class));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
