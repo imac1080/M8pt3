@@ -35,13 +35,13 @@ public class RankingActivity extends AppCompatActivity {
                 finish();
             }
         });
-        if (MainActivity.nom!=null) {
-            MainActivity.ListRanking.add(new Persona(MainActivity.nom, MainActivity.intentos));
-            MainActivity.nom=null;
-            MainActivity.intentos=0;
+        //if (MainActivity.nom!=null) {
+            //MainActivity.ListRanking.add(new Persona(MainActivity.nom, MainActivity.intentos));
+            //MainActivity.nom=null;
+            //MainActivity.intentos=0;
             OrdenarArray();
             //GuardarArray(RankingActivity.this);
-        }
+        //}
         ArrayAdapter<Persona> arrayAdapter = new ArrayAdapter<Persona>(
                 this,
                 android.R.layout.simple_list_item_1,
@@ -64,45 +64,6 @@ public class RankingActivity extends AppCompatActivity {
                 }
             }
         }
-    }
-    public void GuardarArray(Context context){
-        try {
-            File f = new File(context.getFilesDir(),"data.dat");
-            FileOutputStream fout = new FileOutputStream(f);
-            ObjectOutputStream oos = new ObjectOutputStream(fout);
-            //oos.writeObject(MainActivity.ListRanking);
-            oos.writeInt(9);
-            oos.flush();
-            fout.getFD().sync();
-            fout.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        /*FileOutputStream outStream = null;
-        try {
-            File f = new File(context.getFilesDir(),"data.dat");
-            outStream = new FileOutputStream(f);
-            ObjectOutputStream objectOutStream = new ObjectOutputStream(outStream);
-
-
-            objectOutStream.writeObject(MainActivity.ListRanking);
-            objectOutStream.close();
-        } catch (FileNotFoundException e1) {
-            e1.printStackTrace();
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }*/
-        /*try {
-            File myFile = new File(getFilesDir(),"data.dat");
-            myFile.createNewFile();
-            FileOutputStream fOut = new FileOutputStream(myFile);
-            OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
-            myOutWriter.write("replace this with your string");
-            myOutWriter.close();
-            fOut.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
     }
 }
 

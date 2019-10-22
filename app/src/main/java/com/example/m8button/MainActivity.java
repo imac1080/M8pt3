@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("WrongConstant")
             @Override
             public void onClick(View v) {
+                //Log.d("-------","click");
                 String textoProva= number.getText().toString();
                 if(TextUtils.isEmpty(textoProva)) {
                     number.setError("No pots deixar-ho buit");
@@ -71,8 +72,16 @@ public class MainActivity extends AppCompatActivity {
                                     EditText edit=(EditText)dialog.findViewById(R.id.textUserRanking);
                                     nom=edit.getText().toString();
                                     if (IsOnArray(nom)==true){
-                                        GuardarArray(MainActivity.this);
-                                        dialog.dismiss();
+                                        if (TextUtils.isEmpty(nom)){
+                                            edit.setError("No pots deixar-ho buit");
+                                            return;
+                                        }else {
+                                            ListRanking.add(new Persona(nom, intentos));
+                                            nom = null;
+                                            intentos = 0;
+                                            GuardarArray(MainActivity.this);
+                                            dialog.dismiss();
+                                        }
                                     }else{
                                         Toast.makeText(MainActivity.this, "el nom "+nom+" ja esta utilitzat!", Toast.LENGTH_LONG).show();
                                     }
@@ -124,10 +133,13 @@ public class MainActivity extends AppCompatActivity {
                 FileInputStream fout = new FileInputStream(f);
                 ObjectInputStream oos = new ObjectInputStream(fout);
                 ListRanking.clear();
+                int i=0;
                 while (oos.available()>0)  {
                     String s = oos.readUTF();
                     int edat2 = oos.readInt();
                     ListRanking.add(new Persona(s,edat2));
+                    Log.d("-------","persona "+i+" puesta");
+                    i++;
                 }
                 fout.close();
             }
@@ -141,9 +153,10 @@ public class MainActivity extends AppCompatActivity {
             File f = new File(context.getFilesDir(), "data.dat");
             FileOutputStream fout = new FileOutputStream(f);
             ObjectOutputStream oos = new ObjectOutputStream(fout);
-            for(int i = 1; i <= ListRanking.size(); i++)   {
+            for(int i = 0; i < ListRanking.size(); i++)   {
                oos.writeUTF(ListRanking.get(i).nom);
                 oos.writeInt(ListRanking.get(i).qualificacio);
+                Log.d("-------","persona "+i+" puesta long de array: "+ListRanking.size());
             }
             oos.flush();
             fout.getFD().sync();
