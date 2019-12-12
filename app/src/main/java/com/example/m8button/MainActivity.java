@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         final Button btnRanking = findViewById(R.id.btnranking);
         final EditText number = findViewById(R.id.textUserRanking);
         textView2 = findViewById(R.id.textView);
-        LeerArray(MainActivity.this);
+        //LeerArray(MainActivity.this);
         button.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("WrongConstant")
             @Override
@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public static boolean IsOnArray(String nombreTest){
         for(int i = 0; i < ListRanking.size(); i++)   {
-            if (nombreTest.equals(ListRanking.get(i).getNom())){
+            if (nombreTest.equals(ListRanking.get(i).getNombre())){
                 return false;
             }
         }
